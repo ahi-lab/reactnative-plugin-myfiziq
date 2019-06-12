@@ -1,5 +1,6 @@
+![MyFiziq Logo](https://www.myfiziq.com/assets/images/logo.svg)
 
-# react-native-my-fiziq-sdk
+# ReactNative Plugin
 
 ## Getting started
 
