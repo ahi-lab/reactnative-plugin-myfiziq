@@ -1,7 +1,7 @@
 {
   "name": "react-native-my-fiziq-sdk",
-  "version": "1.0.0",
-  "description": "",
+  "version": "19.0.0",
+  "description": "MyFiziqSDK ReactNative plugin",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +9,8 @@
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "",
+  "author": "MyFiziq",
+  "license": "Refer to LICENSE.md",
   "peerDependencies": {
     "react-native": "^0.41.2",
     "react-native-windows": "0.41.0-rc.1"
