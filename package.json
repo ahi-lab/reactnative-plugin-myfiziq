@@ -4,15 +4,49 @@
   "description": "MyFiziqSDK ReactNative plugin",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "./bin/preinstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MyFiziqApp/reactnative-plugin-myfiziq"
   },
   "keywords": [
     "react-native"
   ],
   "author": "MyFiziq",
   "license": "Refer to LICENSE.md",
+  "dependencies": {
+    "@raydeck/xcode": "^2.2.1",
+    "commander": "^2.14.1",
+    "glob": "^7.1.2"
+  },
+  "rnpm": {
+    "plugin": "rnplugin",
+    "commands": {
+      "prelink": "node node_modules/react-native-my-fiziq-sdk/bin/makepod.js",
+      "postlink": "node node_modules/react-native-my-fiziq-sdk/bin/postlink.js"
+    }
+  },
   "peerDependencies": {
     "react-native": "^0.41.2",
     "react-native-windows": "0.41.0-rc.1"
+  },
+  "pods": {
+    "MyFiziqSDKCommon": {
+      "pod": "MyFiziqSDKCommon",
+      "branch": "19.0.2",
+      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-common"
+    },
+    "MyFiziqSDKBilling": {
+      "pod": "MyFiziqSDKBilling",
+      "branch": "19.0.2",
+      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios-billing"
+    },
+    "MyFiziqSDK": {
+      "pod": "MyFiziqSDK",
+      "branch": "19.0.2",
+      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios"
+    }
   }
 }
