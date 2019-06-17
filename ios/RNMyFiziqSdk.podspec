@@ -20,7 +20,9 @@ Pod::Spec.new do |s|
 
 
   s.dependency "React"
-  s.dependency "MyFiziqSDK", '~> 19.0.2'
+  s.dependency 'MyFiziqSDK', :git => 'https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios', :branch => '19.0.2'
+  s.dependency 'MyFiziqSDKBilling', :git => 'https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios-billing', :branch => '19.0.2'
+  s.dependency 'MyFiziqSDKCommon', :git => 'https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-common', :branch => '19.0.2'
 
 end
 
