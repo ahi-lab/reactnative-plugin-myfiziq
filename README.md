@@ -4,7 +4,10 @@
 
 ## Getting started
 
-`$ react-native install react-native-my-fiziq-sdk`
+```
+$ npm install MyFiziqApp/reactnative-plugin-myfiziq
+$ react-native link react-native-my-fiziq-sdk
+```
 
 ## Usage
 ```javascript
