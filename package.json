@@ -19,7 +19,8 @@
   "dependencies": {
     "@raydeck/xcode": "^2.2.1",
     "commander": "^2.14.1",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "rnpm":"^1.9.0"
   },
   "rnpm": {
     "plugin": "rnplugin",
@@ -33,20 +34,24 @@
     "react-native-windows": "0.41.0-rc.1"
   },
   "pods": {
-    "MyFiziqSDKCommon": {
+    "MyFiziqSdkCommon": {
       "pod": "MyFiziqSDKCommon",
-      "branch": "19.0.2",
-      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-common"
+      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-common",
+      "branch": "19.0.2"
     },
-    "MyFiziqSDKBilling": {
+    "MyFiziqSdkBilling": {
       "pod": "MyFiziqSDKBilling",
-      "branch": "19.0.2",
-      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios-billing"
+      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios-billing",
+      "branch": "19.0.2"
     },
-    "MyFiziqSDK": {
+    "MyFiziqSdk": {
       "pod": "MyFiziqSDK",
-      "branch": "19.0.2",
-      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios"
+      "git": "https://external-myfiziq-at-175889021455:Nf1Hwj3e77INg5cqytVri1tvXM0tzUyN63AuUAievL4%3D@git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios",
+      "branch": "19.0.2"
+    },
+    "RNMyFiziqSdk": {
+      "pod": "RNMyFiziqSdk",
+      "path": "../node_modules/react-native-my-fiziq-sdk/ios"
     }
   }
 }
