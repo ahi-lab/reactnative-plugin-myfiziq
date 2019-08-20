@@ -1,12 +1,6 @@
 
 #import "RNMyFiziqWrapCore.h"
-#import <MyFiziqSDK/MyFiziqSDK.h>
 #import "RNMyFiziqWrapCommon.h"
-
-@interface RNMyFiziqWrapCore()
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *setupConfig;
-@property (strong, nonatomic) AWSTaskCompletionSource<NSDictionary *> *authTokens;
-@end
 
 @implementation RNMyFiziqWrapCore
 

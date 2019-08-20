@@ -10,6 +10,9 @@
  * RNMyFiziqSdk is based on MyFiziqSDK Cordova plugin, as there are similarities with the interface structure. All methods return via async.
  */
 
+@interface RNMyFiziqSdk() <MyFiziqSDKDelegate>
+@end
+
 @implementation RNMyFiziqSdk
 
 - (dispatch_queue_t)methodQueue
@@ -30,7 +33,9 @@ RCT_REMAP_METHOD(mfzSdkSetup,
     NSLog(@"MFZ: mfzSdkSetup called");
     // Check params
     if (!key || !secret || !env) {
-        if (reject) reject([NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorSetupParamNil userInfo:nil]);
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZCoreErrorSetupParamNil],
+                           RNMFZCORE_ERR_DOMAIN,
+                           [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorSetupParamNil userInfo:nil]);
     }
     // Call setup
     RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
@@ -40,7 +45,9 @@ RCT_REMAP_METHOD(mfzSdkSetup,
         if (resolve) resolve(nil);
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"MFZ ERR: %@",error.localizedDescription);
-        if (reject) reject([NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorSetupFailed userInfo:@{NSLocalizedDescriptionKey:@(error.code)}]);
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZCoreErrorSetupFailed],
+                           RNMFZAVATAR_ERR_DOMAIN,
+                           [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorSetupFailed userInfo:@{NSLocalizedDescriptionKey:@(error.code)}]);
     }];
 }
 
@@ -75,7 +82,9 @@ RCT_REMAP_METHOD(mfzSdkAnswerLogins,
 {
     // Check params
     if (!idpKey || !idpToken) {
-        if (reject) reject([NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorAnswerLoginsParamNil userInfo:nil]);
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
+                           RNMFZAVATAR_ERR_DOMAIN,
+                           [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorAnswerLoginsParamNil userInfo:nil]);
     }
     // Answer the call
     NSDictionary<NSString *, NSString *> *tokenAnswer = @{idpKey:idpToken};
@@ -93,7 +102,9 @@ RCT_REMAP_METHOD(mfzSdkInitiateAvatarCreation,
     [[MyFiziqSDK shared] initiateAvatarCreationWithOptions:nil withMiscellaneousData:nil fromViewController:vc completion:^(NSError * _Nullable err) {
         NSLog(@"MFZ: mfzSdkInitiateAvatarCreation completed");
         if (err && err.code != MFZSdkErrorCodeCancelCreation && err.code != MFZSdkErrorCodeOKCaptureCancel) {
-            if (reject) reject([NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorCaptureProcessFailed userInfo:@{NSLocalizedDescriptionKey:@(err.code)}]);
+            if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
+                               RNMFZAVATAR_ERR_DOMAIN,
+                               [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorCaptureProcessFailed userInfo:@{NSLocalizedDescriptionKey:@(err.code)}]);
         } else {
             // Resolve with potential user cancel
             if (resolve) resolve(err.code == MFZSdkErrorCodeCancelCreation || err.code == MFZSdkErrorCodeOKCaptureCancel ? @"cancel" : nil);
