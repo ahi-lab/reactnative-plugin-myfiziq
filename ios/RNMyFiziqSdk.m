@@ -1,5 +1,6 @@
 
 #import "RNMyFiziqSdk.h"
+#import <MyFiziqSDK/MyFiziqSDK.h>
 #import "RNMyFiziqWrapCore.h"
 #import "RNMyFiziqWrapUser.h"
 #import "RNMyFiziqWrapAvatar.h"

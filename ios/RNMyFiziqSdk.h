@@ -10,8 +10,6 @@
 #import <React/RCTEventDispatcher.h>
 #endif
 
-#import <MyFiziqSDK/MyFiziqSDK.h>
-
 /* Error codes for core. */
 typedef NS_ENUM(NSInteger, RNMFZCoreError) {
     /* No error. */
