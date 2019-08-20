@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNMyFiziqSdk"
-  s.version      = "19.0.2"
+  s.version      = "19.1.3"
   s.summary      = "RNMyFiziqSdk"
   s.description  = <<-DESC
     MyFiziq ReactNative plugin

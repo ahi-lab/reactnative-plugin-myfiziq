@@ -5,8 +5,6 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-#import <MyFiziqSDK/MyFiziqSDK.h>
-
 @interface RNMyFiziqWrapCore : NSObject
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *setupConfig;
 @property (strong, nonatomic) AWSTaskCompletionSource<NSDictionary *> *authTokens;

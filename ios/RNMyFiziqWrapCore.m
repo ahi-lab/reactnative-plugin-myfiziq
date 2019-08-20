@@ -1,5 +1,6 @@
 
 #import "RNMyFiziqWrapCore.h"
+#import <MyFiziqSDK/MyFiziqSDK.h>
 #import "RNMyFiziqWrapCommon.h"
 
 @implementation RNMyFiziqWrapCore
