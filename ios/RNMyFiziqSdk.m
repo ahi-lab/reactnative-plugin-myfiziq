@@ -315,6 +315,7 @@ RCT_REMAP_METHOD(mfzAvatarHasDownloadedMesh,
                  mfzAvatarHasDownloadedMeshWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarHasDownloadedMeshId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarDate,
@@ -322,6 +323,7 @@ RCT_REMAP_METHOD(mfzAvatarDate,
                  mfzAvatarDateWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarDateId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarGender,
@@ -329,6 +331,7 @@ RCT_REMAP_METHOD(mfzAvatarGender,
                  mfzAvatarGenderWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarGenderId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarMeshCachedFile,
@@ -336,6 +339,7 @@ RCT_REMAP_METHOD(mfzAvatarMeshCachedFile,
                  mfzAvatarMeshCachedFileWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarMeshFileId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarState,
@@ -343,6 +347,7 @@ RCT_REMAP_METHOD(mfzAvatarState,
                  mfzAvatarStateFileWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarStateId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarHeightInCm,
@@ -350,6 +355,7 @@ RCT_REMAP_METHOD(mfzAvatarHeightInCm,
                  mfzAvatarHeightInCmWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarHeightCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarWeightInKg,
@@ -357,6 +363,7 @@ RCT_REMAP_METHOD(mfzAvatarWeightInKg,
                  mfzAvatarWeightInKgWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarWeightKgId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarChestInCm,
@@ -364,6 +371,7 @@ RCT_REMAP_METHOD(mfzAvatarChestInCm,
                  mfzAvatarChestInCmWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarChestCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarWaistInCm,
@@ -371,6 +379,7 @@ RCT_REMAP_METHOD(mfzAvatarWaistInCm,
                  mfzAvatarWaistInCmWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarWaistCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarHipInCm,
@@ -378,6 +387,7 @@ RCT_REMAP_METHOD(mfzAvatarHipInCm,
                  mfzAvatarHipInCmWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarHipCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarInseamInCm,
@@ -385,6 +395,7 @@ RCT_REMAP_METHOD(mfzAvatarInseamInCm,
                  mfzAvatarInseamInCmWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarInseamCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarThighInCm,
@@ -392,6 +403,7 @@ RCT_REMAP_METHOD(mfzAvatarThighInCm,
                  mfzAvatarThighInCmWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarThighCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
 #pragma mark - RN Export Avatar Manager
@@ -400,6 +412,7 @@ RCT_REMAP_METHOD(mfzAvatarMgrRequestAvatars,
                  mfzAvatarMgrRequestAvatarsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarMgrRequestWithResolver:resolve rejecter:reject];
 }
 
 RCT_REMAP_METHOD(mfzAvatarMgrDeleteAvatars,
@@ -407,6 +420,7 @@ RCT_REMAP_METHOD(mfzAvatarMgrDeleteAvatars,
                  mfzAvatarMgrDeleteAvatarsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarMgrDelete:attemptIds Resolver:resolve rejecter:reject];
 }
 
 #pragma mark - RN Export Avatar Manager Properties
@@ -415,6 +429,7 @@ RCT_REMAP_METHOD(mfzAvatarMgrAllAvatars,
                  mfzAvatarMgrAllAvatarsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    [RNMyFiziqWrapAvatar mfzAvatarMgrAllWithResolver:resolve rejecter:reject];
 }
 
 @end
