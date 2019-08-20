@@ -6,8 +6,6 @@
 #endif
 
 @interface RNMyFiziqWrapCore : NSObject
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *setupConfig;
-@property (strong, nonatomic) AWSTaskCompletionSource<NSDictionary *> *authTokens;
 + (instancetype)shared;
 - (void)mfzSdkStatusConnectionResolver:(RCTPromiseResolveBlock)resolve;
 - (void)mfzSdkStatusVersionResolver:(RCTPromiseResolveBlock)resolve;
