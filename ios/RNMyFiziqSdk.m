@@ -1,5 +1,6 @@
 
 #import "RNMyFiziqSdk.h"
+#import <React/RCTLog.h>
 #import <MyFiziqSDK/MyFiziqSDK.h>
 #import "RNMyFiziqWrapCore.h"
 #import "RNMyFiziqWrapUser.h"
@@ -15,11 +16,11 @@
 
 @implementation RNMyFiziqSdk
 
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_get_main_queue();
-}
 RCT_EXPORT_MODULE();
+
+- (NSArray<NSString *> *)supportedEvents {
+  return @[RNMFZCORE_EVENT_AUTH];
+}
 
 #pragma mark - RN Export Core
 
@@ -30,23 +31,23 @@ RCT_REMAP_METHOD(mfzSdkSetup,
                  mfzSdkSetupWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSLog(@"MFZ: mfzSdkSetup called");
+    RCTLogInfo(@"MFZ: mfzSdkSetup called");
     // Check params
     if (!key || !secret || !env) {
-        if (reject) reject(/*[NSString stringWithFormat:@"%ld", RNMFZCoreErrorSetupParamNil],
-                           RNMFZCORE_ERR_DOMAIN,*/
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZCoreErrorSetupParamNil],
+                           RNMFZCORE_ERR_DOMAIN,
                            [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorSetupParamNil userInfo:nil]);
     }
     // Call setup
     RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
     core.setupConfig = @{MFZSdkSetupKey:key, MFZSdkSetupSecret:secret, MFZSdkSetupEnvironment:env};
     [[MyFiziqSDK shared] setupWithConfig:core.setupConfig authDelegate:self success:^(NSDictionary * _Nonnull status) {
-        NSLog(@"MFZ: MyFiziqSDK setup success");
+        RCTLogInfo(@"MFZ: MyFiziqSDK setup success");
         if (resolve) resolve(nil);
     } failure:^(NSError * _Nonnull error) {
-        NSLog(@"MFZ ERR: %@",error.localizedDescription);
-        if (reject) reject(/*[NSString stringWithFormat:@"%ld", RNMFZCoreErrorSetupFailed],
-                           RNMFZAVATAR_ERR_DOMAIN,*/
+        RCTLogError(@"MFZ ERR: %@",error.localizedDescription);
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZCoreErrorSetupFailed],
+                           RNMFZAVATAR_ERR_DOMAIN,
                            [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorSetupFailed userInfo:@{NSLocalizedDescriptionKey:@(error.code)}]);
     }];
 }
@@ -56,7 +57,7 @@ RCT_REMAP_METHOD(mfzSdkSetup,
 - (AWSTask<NSDictionary<NSString *, NSString *> *> *)logins {
     RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
     core.authTokens = [[AWSTaskCompletionSource<NSDictionary *> alloc] init];
-    [self sendAppEventWithName:RNMFZCORE_EVENT_AUTH body:nil];
+    [self sendEventWithName:RNMFZCORE_EVENT_AUTH body:@"ignore"];
     return [AWSTask taskForCompletionOfAnyTask:@[core.authTokens.task]];
 }
 
@@ -65,9 +66,9 @@ RCT_REMAP_METHOD(mfzSdkSetup,
     RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
     if (core.setupConfig) {
         [[MyFiziqSDK shared] setupWithConfig:core.setupConfig authDelegate:self success:^(NSDictionary * _Nonnull status) {
-            NSLog(@"MFZ: MyFiziqSDK reload success");
+            RCTLogInfo(@"MFZ: MyFiziqSDK reload success");
         } failure:^(NSError * _Nonnull error) {
-            NSLog(@"MFZ ERR: %@",error.localizedDescription);
+            RCTLogError(@"MFZ ERR: %@",error.localizedDescription);
         }];
     }
 }
@@ -80,30 +81,30 @@ RCT_REMAP_METHOD(mfzSdkAnswerLogins,
                  mfzSdkAnswerLoginsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
     // Check params
     if (!idpKey || !idpToken) {
-        if (reject) reject(/*[NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
-                           RNMFZAVATAR_ERR_DOMAIN,*/
-                           [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorAnswerLoginsParamNil userInfo:nil]);
+        [core.authTokens trySetResult:nil];
+        if (resolve) resolve(nil);
+    } else {
+        // Answer the call
+        NSDictionary<NSString *, NSString *> *tokenAnswer = @{idpKey:idpToken};
+        [core.authTokens trySetResult:tokenAnswer];
+        if (resolve) resolve(nil);
     }
-    // Answer the call
-    NSDictionary<NSString *, NSString *> *tokenAnswer = @{idpKey:idpToken};
-    RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
-    [core.authTokens trySetResult:tokenAnswer];
-    if (resolve) resolve(nil);
 }
 
 RCT_REMAP_METHOD(mfzSdkInitiateAvatarCreation,
                  mfzSdkInitiateAvatarCreationWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSLog(@"MFZ: mfzSdkInitiateAvatarCreation called");
+    RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation called");
     UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
     [[MyFiziqSDK shared] initiateAvatarCreationWithOptions:nil withMiscellaneousData:nil fromViewController:vc completion:^(NSError * _Nullable err) {
-        NSLog(@"MFZ: mfzSdkInitiateAvatarCreation completed");
+        RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation completed");
         if (err && err.code != MFZSdkErrorCodeCancelCreation && err.code != MFZSdkErrorCodeOKCaptureCancel) {
-            if (reject) reject(/*[NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
-                               RNMFZAVATAR_ERR_DOMAIN,*/
+            if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
+                               RNMFZAVATAR_ERR_DOMAIN,
                                [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorCaptureProcessFailed userInfo:@{NSLocalizedDescriptionKey:@(err.code)}]);
         } else {
             // Resolve with potential user cancel

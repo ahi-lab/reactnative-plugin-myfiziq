@@ -2,11 +2,9 @@
 
 # Installation
 
-⚠️ **NOTE:** MyFiziq React Native plugin does not support v0.60 of React Native at this stage. This is due to React Native not allowing the use of dynamic libraries as part of Cocoapods installation at this time.
-
 This guide assumes the React Native is installed and configured.
 
-1. Create a new RN project:
+1. Create a new RN project (if not already done):
 ```sh
 react-native init MyFiziqExample --version react-native@0.59.10
 cd MyFiziqExample
@@ -19,21 +17,79 @@ npm install MyFiziqApp/reactnative-plugin-myfiziq
 ```sh
 react-native link react-native-my-fiziq-sdk
 ```
-4. Remove the duplicate RN package.json file (⚠️ **NOTE:** This workaround step will be removed in future once the fix is introduced. It is only relevant for iOS development.):
-```sh
-rm ios/Pods/React/package.json
-```
-5. Test that the project builds and runs (assuming iOS development):
+4. Test that the project builds and runs (assuming iOS development):
 ```sh
 react-native run-ios
 ```
 
 # Use Example
 
+__App.js__
+
 ```js
+
 ...
-// Import MyFiziq plugin
-import RNMyFiziqSdk from 'react-native-my-fiziq-sdk';
+
+import {Platform, StyleSheet, Text, View, NativeModules, NativeEventEmitter, Alert} from 'react-native';
+
+// Import in the MyFiziq SDK plugin
+var MyFiziq = NativeModules.RNMyFiziqSdk;
+var MyFiziqEvent = new NativeEventEmitter(MyFiziq)
+
+// Setup MyFiziq service
+// NOTE: Replace the KEY, SECRET, and ENVIRONMENT strings with values given by MyFiziq
+async function myfiziqSetup() {
+  try {
+    let result = await MyFiziq.mfzSdkSetup(
+      "KEY", 
+      "SECRET", 
+      "ENVIRONMENT");
+  } catch(e) {
+    Alert.alert('Error', e,[{text: 'OK', onPress: () => console.log('OK Pressed')}],{cancelable: false});
+  }
+}
+
+// Answer MyFiziq event requests
+MyFiziqEvent.addListener('myfiziqGetAuthToken', (data) => {
+  // Answer with idP service user authentication token, as per AWS Cognito OpenID mapping.
+  // See: https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html
+  // NOTE: null passed in this example, however OID token would be passed or null if user not logged in.
+  MyFiziq.mfzSdkAnswerLogins(null, null);
+});
+
+...
+
+type Props = {};
+export default class App extends Component<Props> {
+
+  // Initialize MyFiziq service on App startup via the App class Constructor.
+  constructor(props) {
+    super(props);
+    myfiziqSetup();
+  }
+
+  render() {
+    return (
+      ...
+    );
+  }
+
+  ...
+
+}
+
 ...
 ```
+
+## Custom styling with CSS
+
+The MyFiziqSDK UI can be customised to a high degree of flexibility using CSS. The iOS SDK uses the [InterfaCSS](https://github.com/tolo/InterfaCSS) framework to bind the CSS stylings to the native UI. By simply distributing a custom CSS file with the APP and calling the `mfzSdkLoadCSS` method to declare the CSS file path will cause the MyFiziq Avatar Creation Process UI to be customised. For reference, the base CSS can be refered to [here](myfiziq-sdk.css).
+
+## Author
+
+MyFiziq iOS Dev, dev@myfiziq.com
+
+## License
+
+MyFiziqSDK is Copyright 2017-2019. Refer to LICENSE.md for details.
   

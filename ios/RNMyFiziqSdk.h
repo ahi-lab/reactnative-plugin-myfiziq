@@ -1,14 +1,6 @@
 
-#if __has_include("RCTBridgeModule.h")
-#import "RCTBridgeModule.h"
-#else
 #import <React/RCTBridgeModule.h>
-#endif
-#if __has_include("RCTEventDispatcher.h")
-#import "RCTEventDispatcher.h"
-#else
-#import <React/RCTEventDispatcher.h>
-#endif
+#import <React/RCTEventEmitter.h>
 
 /* Error codes for core. */
 typedef NS_ENUM(NSInteger, RNMFZCoreError) {
@@ -26,7 +18,7 @@ typedef NS_ENUM(NSInteger, RNMFZCoreError) {
 #define RNMFZCORE_ERR_DOMAIN            @"com.myfiziq.rnsdk.core"
 #define RNMFZCORE_EVENT_AUTH            @"myfiziqGetAuthToken"
 
-@interface RNMyFiziqSdk : RCTEventDispatcher <RCTBridgeModule>
+@interface RNMyFiziqSdk : RCTEventEmitter <RCTBridgeModule>
 
 @end
   

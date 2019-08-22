@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.author                = { 'MyFiziq' => 'dev@myfiziq.com' }
   s.ios.deployment_target = '12.1'
   s.source                = { :git => "https://github.com/MyFiziqApp/reactnative-plugin-myfiziq", :branch => "master" }
-  s.source_files          = "*.{h,m}"
+  # s.source_files          = "*.{h,m}"
   s.requires_arc          = true
 
 

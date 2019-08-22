@@ -3,6 +3,15 @@
 
 @implementation RNMyFiziqWrapCommon
 
+#pragma mark - Properties
+
+- (NSString *)sdkCssPathLocal {
+    if (!_sdkCssPathLocal) {
+        _sdkCssPathLocal = @"app-myfiziq";
+    }
+    return _sdkCssPathLocal;
+}
+
 #pragma mark - Methods
 
 + (instancetype)shared {
