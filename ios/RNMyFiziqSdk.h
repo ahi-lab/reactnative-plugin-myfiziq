@@ -19,6 +19,5 @@ typedef NS_ENUM(NSInteger, RNMFZCoreError) {
 #define RNMFZCORE_EVENT_AUTH            @"myfiziqGetAuthToken"
 
 @interface RNMyFiziqSdk : RCTEventEmitter <RCTBridgeModule>
-
 @end
   

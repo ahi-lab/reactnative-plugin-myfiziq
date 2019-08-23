@@ -29,7 +29,7 @@
 }
 
 - (NSString *)sdkCssName {
-    return @"app-myfiziq";
+    return self.sdkCssPathLocal;
 }
 
 - (NSString *)sdkStringsTable {

@@ -40,6 +40,8 @@ fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCore.h", "RN
 fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCore.m", "RNMyFiziqWrapCore.m", (err) => {if (err) throw err;});
 fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapUser.h", "RNMyFiziqWrapUser.h", (err) => {if (err) throw err;});
 fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapUser.m", "RNMyFiziqWrapUser.m", (err) => {if (err) throw err;});
+fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCognitoAuth.h", "RNMyFiziqWrapCognitoAuth.h", (err) => {if (err) throw err;});
+fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCognitoAuth.m", "RNMyFiziqWrapCognitoAuth.m", (err) => {if (err) throw err;});
 // Update XCode project with new files
 const g = path.join(process.cwd(), "**", "project.pbxproj");
 glob.sync(g).forEach(path => {
@@ -60,6 +62,8 @@ glob.sync(g).forEach(path => {
     project.addSourceFile('RNMyFiziqWrapCore.m', opt);
     project.addHeaderFile('RNMyFiziqWrapUser.h', opt);
     project.addSourceFile('RNMyFiziqWrapUser.m', opt);
+    project.addHeaderFile('RNMyFiziqWrapCognitoAuth.h', opt);
+    project.addSourceFile('RNMyFiziqWrapCognitoAuth.m', opt);
     fs.writeFileSync(path, project.writeSync());
     console.log('Add MyFiziq source files...done');
   });

@@ -5,6 +5,7 @@
 #import "RNMyFiziqWrapCore.h"
 #import "RNMyFiziqWrapUser.h"
 #import "RNMyFiziqWrapAvatar.h"
+#import "RNMyFiziqWrapCognitoAuth.h"
 
 /*
  * This class is the RN facing interface. It should just be a proxy that invokes the native interfaces (such as SDK and bespoke view controllers).
@@ -186,6 +187,73 @@ RCT_REMAP_METHOD(mfzSdkLoadCSS,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [[RNMyFiziqWrapCore shared] mfzSdkLoadCSSPath:cssPath resolver:resolve];
+}
+
+#pragma mark - RN Export Cognito User Pool Auth
+
+RCT_REMAP_METHOD(mfzCognitoUserSignedIn,
+                 mfzCognitoUserSignedInWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserSignedInResolver:resolve];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserValidateInput,
+                 email:(NSString *)email
+                 passwordA:(NSString *)passA
+                 passwordB:(NSString *)passB
+                 mfzCognitoUserValidateInputWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserValidateInputEmail:email passA:passA passB:passB resolver:resolve rejecter:reject];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserLogin,
+                 email:(NSString *)email
+                 password:(NSString *)pass
+                 mfzCognitoUserLoginWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserLoginEmail:email password:pass resolver:resolve rejecter:reject];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserPasswordResetRequest,
+                 email:(NSString *)email
+                 mfzCognitoUserPasswordResetRequestWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserPasswordResetRequestEmail:email resolver:resolve rejecter:reject];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserPasswordResetConfirm,
+                 email:(NSString *)email
+                 resetCode:(NSString *)rcode
+                 newPassword:(NSString *)newPass
+                 mfzCognitoUserPasswordResetConfirmWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserPasswordResetConfirmEmail:email resetCode:rcode newPassword:newPass resolver:resolve rejecter:reject];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserLogout,
+                 mfzCognitoUserLogoutWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserLogoutResolver:resolve rejecter:reject];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserToken,
+                 mfzCognitoUserTokenWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserTokenResolver:resolve rejecter:reject];
+}
+
+RCT_REMAP_METHOD(mfzCognitoUserReauthenticate,
+                 mfzCognitoUserReauthenticateWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  [[RNMyFiziqWrapCognitoAuth shared] mfzCognitoUserReauthenticateResolver:resolve rejecter:reject];
 }
 
 #pragma mark - RN Export User

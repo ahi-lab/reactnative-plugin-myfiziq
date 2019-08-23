@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
   s.dependency 'MyFiziqSDKCommon'
   s.dependency 'MyFiziqSDKBilling'
   s.dependency 'MyFiziqSDK'
+  s.dependency 'SHEmailValidator'
   
 
 end
