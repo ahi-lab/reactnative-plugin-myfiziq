@@ -28,6 +28,10 @@ RCT_EXPORT_MODULE();
   return sharedInstance;
 }
 
++ (id)alloc {
+  return [RNMyFiziqSdk allocWithZone:nil];
+}
+
 - (NSArray<NSString *> *)supportedEvents {
   return @[RNMFZCORE_EVENT_AUTH];
 }
@@ -67,7 +71,8 @@ RCT_REMAP_METHOD(mfzSdkSetup,
 - (AWSTask<NSDictionary<NSString *, NSString *> *> *)logins {
     RNMyFiziqWrapCore *core = [RNMyFiziqWrapCore shared];
     core.authTokens = [[AWSTaskCompletionSource<NSDictionary *> alloc] init];
-    [self sendEventWithName:RNMFZCORE_EVENT_AUTH body:@"ignore"];
+    RNMyFiziqSdk *myself = [RNMyFiziqSdk alloc];
+    [myself sendEventWithName:RNMFZCORE_EVENT_AUTH body:@"ignore"];
     return [AWSTask taskForCompletionOfAnyTask:@[core.authTokens.task]];
 }
 
