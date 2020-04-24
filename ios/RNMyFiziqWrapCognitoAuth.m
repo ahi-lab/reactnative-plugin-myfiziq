@@ -3,7 +3,6 @@
 #import <React/RCTLog.h>
 #import <MyFiziqSDK/MyFiziqSDK.h>
 #import <SpotHeroEmailValidator/SpotHeroEmailValidator.h>
-//#import <SHEmailValidator/SHEmailValidator.h>
 #import <CommonCrypto/CommonHMAC.h>
 
 #define MYQ_APP_NAME            @"RNMyFiziqSDKWrap"
@@ -214,7 +213,7 @@
     return kMFZAuthValidationNoEmail;
   }
   NSError *error;
-  [[SHEmailValidator validator] validateSyntaxOfEmailAddress:email withError:&error];
+  [[SpotHeroEmailValidator validator] validateSyntaxOfEmailAddress:email withError:&error];
   if (error) {
     return kMFZAuthValidationInvalidEmail;
   }

@@ -53,6 +53,9 @@
       "pod": "MyFiziqSDK",
       "git": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios",
       "branch": "19.1.9_trunk"
+    },
+    "SpotHeroEmailValidator": {
+      "pod": "SpotHeroEmailValidator"
     }
   }
 }
