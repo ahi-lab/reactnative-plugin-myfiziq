@@ -2,6 +2,8 @@
 #import "RNMyFiziqSdk.h"
 #import <React/RCTLog.h>
 #import <MyFiziqSDK/MyFiziqSDK.h>
+#import <MyFiziqSDKBilling/MyFiziqBilling.h>
+#import "RNMyFiziqWrapCommon.h"
 #import "RNMyFiziqWrapCore.h"
 #import "RNMyFiziqWrapUser.h"
 #import "RNMyFiziqWrapAvatar.h"
@@ -115,7 +117,7 @@ RCT_REMAP_METHOD(mfzSdkInitiateAvatarCreation,
 {
     RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation called");
     UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [[MyFiziqSDK shared] initiateAvatarCreationWithOptions:nil withMiscellaneousData:nil fromViewController:vc completion:^(NSError * _Nullable err) {
+    [[MyFiziqSDK shared] initiateAvatarCreationWithOptions:nil withMiscellaneousData:[RNMyFiziqWrapCommon shared].miscData fromViewController:vc completion:^(NSError * _Nullable err) {
         RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation completed");
         if (err && err.code != MFZSdkErrorCodeCancelCreation && err.code != MFZSdkErrorCodeOKCaptureCancel) {
             if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
@@ -126,6 +128,41 @@ RCT_REMAP_METHOD(mfzSdkInitiateAvatarCreation,
             if (resolve) resolve(err.code == MFZSdkErrorCodeCancelCreation || err.code == MFZSdkErrorCodeOKCaptureCancel ? @"cancel" : nil);
         }
     }];
+}
+
+RCT_REMAP_METHOD(mfzSdkSetMiscData,
+                 misc:(NSDictionary *)data
+                 mfzSdkStatusConnectionWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    RCTLogInfo(@"MFZ: mfzSdkSetMiscData called");
+    if (!data) {
+        // is empty, so clear
+        [RNMyFiziqWrapCommon shared].miscData = nil;
+        if (resolve) resolve(nil);
+        RCTLogInfo(@"MFZ: mfzSdkSetMiscData completed");
+    } else {
+        // Check that the misc data can be jsonified
+        @try {
+            NSError *err;
+            NSData *result = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&err];
+            if (!result || err) {
+                RCTLogInfo(@"MFZ: mfzSdkSetMiscData dictionary passed failed jsonify check");
+                if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorMiscDataParamInvalid],
+                               RNMFZAVATAR_ERR_DOMAIN,
+                               [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZAvatarErrorMiscDataParamInvalid userInfo:@{NSLocalizedDescriptionKey:@(err ? err.code : 0)}]);
+            } else {
+                [RNMyFiziqWrapCommon shared].miscData = data;
+                RCTLogInfo(@"MFZ: mfzSdkSetMiscData completed");
+                if (resolve) resolve(nil);
+            }
+        } @catch (NSException *exception) {
+            RCTLogInfo(@"MFZ: mfzSdkSetMiscData dictionary passed failed jsonify check - exception");
+            if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorMiscDataParamInvalid],
+                               RNMFZAVATAR_ERR_DOMAIN,
+                               [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZAvatarErrorMiscDataParamInvalid userInfo:@{NSLocalizedDescriptionKey:@(100)}]);
+        }
+    }
 }
 
 #pragma mark - RN Export Core Properties
@@ -501,6 +538,14 @@ RCT_REMAP_METHOD(mfzAvatarThighInCm,
     [RNMyFiziqWrapAvatar mfzAvatarThighCmId:attemptId Resolver:resolve rejecter:reject];
 }
 
+RCT_REMAP_METHOD(mfzAvatarMiscData,
+                 withId:(NSString *)attemptId
+                 mfzAvatarMiscDataWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [RNMyFiziqWrapAvatar mfzAvatarMiscDataId:attemptId Resolver:resolve rejecter:reject];
+}
+
 #pragma mark - RN Export Avatar Manager
 
 RCT_REMAP_METHOD(mfzAvatarMgrRequestAvatars,
@@ -526,6 +571,24 @@ RCT_REMAP_METHOD(mfzAvatarMgrAllAvatars,
 {
     [RNMyFiziqWrapAvatar mfzAvatarMgrAllWithResolver:resolve rejecter:reject];
 }
+
+#pragma mark - RN Export Billing Methods
+
+RCT_REMAP_METHOD(mfzBillingEvent,
+                 withId:(NSNumber *)billingId
+                 mfzBillingEventWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (!billingId || [billingId integerValue] <= 0) {
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZCoreErrorBillingIDParamInvalid],
+                           RNMFZCORE_ERR_DOMAIN,
+                           [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorBillingIDParamInvalid userInfo:nil]);
+    } else {
+        [[MyFiziqBilling shared] logBillingEventId:[billingId integerValue] eventSource:MFZBillingSourceApp eventMisc:nil];
+        if (resolve) resolve(nil);
+    }
+}
+
 
 @end
   

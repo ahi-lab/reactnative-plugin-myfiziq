@@ -1,5 +1,8 @@
 
 #import <React/RCTBridgeModule.h>
+#import <AWSCore/AWSCore.h>
+#import <AWSCognito/AWSCognito.h>
+#import <AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.h>
 
 /* Error codes for avatar. */
 typedef NS_ENUM(NSInteger, RNMFZCognitoAuthError) {

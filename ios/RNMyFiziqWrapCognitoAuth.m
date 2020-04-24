@@ -2,10 +2,9 @@
 #import "RNMyFiziqWrapCognitoAuth.h"
 #import <React/RCTLog.h>
 #import <MyFiziqSDK/MyFiziqSDK.h>
-#import <AWSCore/AWSCore.h>
-#import <AWSCognito/AWSCognito.h>
-#import <AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.h>
-#import <SHEmailValidator/SHEmailValidator.h>
+#import <SpotHeroEmailValidator/SpotHeroEmailValidator.h>
+//#import <SHEmailValidator/SHEmailValidator.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 #define MYQ_APP_NAME            @"RNMyFiziqSDKWrap"
 #define MIN_PASSWORD_LENGTH     6

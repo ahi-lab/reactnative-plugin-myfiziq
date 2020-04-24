@@ -16,7 +16,9 @@ typedef NS_ENUM(NSInteger, RNMFZAvatarError) {
     /* Failed to poll for new results. */
     RNMFZAvatarErrorFailedPoll,
     /* Failed to delete avatars requested. */
-    RNMFZAvatarErrorFailedDelete
+    RNMFZAvatarErrorFailedDelete,
+    /* Dictionary passed is not able to searialize to json */
+    RNMFZAvatarErrorMiscDataParamInvalid
 };
 #define RNMFZAVATAR_ERR_DOMAIN          @"com.myfiziq.rnsdk.avatar"
 
@@ -35,6 +37,7 @@ typedef NS_ENUM(NSInteger, RNMFZAvatarError) {
 + (void)mfzAvatarHipCmId:(NSString *)attemptId Resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 + (void)mfzAvatarInseamCmId:(NSString *)attemptId Resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 + (void)mfzAvatarThighCmId:(NSString *)attemptId Resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
++ (void)mfzAvatarMiscDataId:(NSString *)attemptId Resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 // Avatar Manager
 + (void)mfzAvatarMgrRequestWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 + (void)mfzAvatarMgrDelete:(NSArray *)attemptIds Resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;

@@ -30,6 +30,38 @@ const doFix = isSwift && needsSwiftFix;
 const mydir = process.cwd();
 process.chdir("./ios");
 
+function copyFileSync( source, target ) {
+  var targetFile = target;
+  //if target is a directory a new file with the same name will be created
+  if ( fs.existsSync( target ) ) {
+      if ( fs.lstatSync( target ).isDirectory() ) {
+          targetFile = path.join( target, path.basename( source ) );
+      }
+  }
+  fs.writeFileSync(targetFile, fs.readFileSync(source));
+}
+
+// function copyFolderRecursiveSync( source, target ) {
+//   var files = [];
+//   //check if folder needs to be created or integrated
+//   var targetFolder = path.join( target, path.basename( source ) );
+//   if ( !fs.existsSync( targetFolder ) ) {
+//       fs.mkdirSync( targetFolder );
+//   }
+//   //copy
+//   if ( fs.lstatSync( source ).isDirectory() ) {
+//       files = fs.readdirSync( source );
+//       files.forEach( function ( file ) {
+//           var curSource = path.join( source, file );
+//           if ( fs.lstatSync( curSource ).isDirectory() ) {
+//               copyFolderRecursiveSync( curSource, targetFolder );
+//           } else {
+//               copyFileSync( curSource, targetFolder );
+//           }
+//       } );
+//   }
+// }
+
 function updateXcodeProject(callback) {
   const g = path.join(process.cwd(), "**", "project.pbxproj");
   glob.sync(g).forEach(path => {
@@ -40,18 +72,18 @@ function updateXcodeProject(callback) {
       var opt = { target : project.getFirstTarget().uuid };
       // project.pbxCreateGroup("RNMyFiziqSdk", "RNMyFiziqSdk");
       // var group = project.findPBXGroupKey({name:'RNMyFiziqSdk'});
-      project.addHeaderFile('RNMyFiziqSdk.h', opt);
-      project.addSourceFile('RNMyFiziqSdk.m', opt);
-      project.addHeaderFile('RNMyFiziqWrapAvatar.h', opt);
-      project.addSourceFile('RNMyFiziqWrapAvatar.m', opt);
-      project.addHeaderFile('RNMyFiziqWrapCommon.h', opt);
-      project.addSourceFile('RNMyFiziqWrapCommon.m', opt);
-      project.addHeaderFile('RNMyFiziqWrapCore.h', opt);
-      project.addSourceFile('RNMyFiziqWrapCore.m', opt);
-      project.addHeaderFile('RNMyFiziqWrapUser.h', opt);
-      project.addSourceFile('RNMyFiziqWrapUser.m', opt);
-      project.addHeaderFile('RNMyFiziqWrapCognitoAuth.h', opt);
-      project.addSourceFile('RNMyFiziqWrapCognitoAuth.m', opt);
+      project.addHeaderFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqSdk.h", opt);
+      project.addSourceFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqSdk.m", opt);
+      project.addHeaderFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapAvatar.h", opt);
+      project.addSourceFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapAvatar.m", opt);
+      project.addHeaderFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapCommon.h", opt);
+      project.addSourceFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapCommon.m", opt);
+      project.addHeaderFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapCore.h", opt);
+      project.addSourceFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapCore.m", opt);
+      project.addHeaderFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapUser.h", opt);
+      project.addSourceFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapUser.m", opt);
+      project.addHeaderFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapCognitoAuth.h", opt);
+      project.addSourceFile(nodepath + "/reactnative-plugin-myfiziq/ios/RNMyFiziqWrapCognitoAuth.m", opt);
       fs.writeFileSync(path, project.writeSync());
       console.log('Add MyFiziq source files...done');
       if (callback) {
@@ -61,19 +93,6 @@ function updateXcodeProject(callback) {
   });
 }
 
-// Copy in the MYQ binding files
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqSdk.h", "RNMyFiziqSdk.h", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqSdk.m", "RNMyFiziqSdk.m", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapAvatar.h", "RNMyFiziqWrapAvatar.h", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapAvatar.m", "RNMyFiziqWrapAvatar.m", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCommon.h", "RNMyFiziqWrapCommon.h", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCommon.m", "RNMyFiziqWrapCommon.m", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCore.h", "RNMyFiziqWrapCore.h", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCore.m", "RNMyFiziqWrapCore.m", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapUser.h", "RNMyFiziqWrapUser.h", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapUser.m", "RNMyFiziqWrapUser.m", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCognitoAuth.h", "RNMyFiziqWrapCognitoAuth.h", (err) => {if (err) throw err;});
-fs.copyFile(nodepath + "/react-native-my-fiziq-sdk/ios/RNMyFiziqWrapCognitoAuth.m", "RNMyFiziqWrapCognitoAuth.m", (err) => {if (err) throw err;});
 // Update XCode project with new files
 updateXcodeProject(() => {
   // Pod install

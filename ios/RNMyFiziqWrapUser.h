@@ -22,7 +22,9 @@ typedef NS_ENUM(NSInteger, RNMFZUserError) {
     /* Failed to set weight due to invalid param. */
     RNMFZUserErrorFailedSetWeightParamInvalid,
     /* Failed to set height due to invalid param. */
-    RNMFZUserErrorFailedSetHeightParamInvalid
+    RNMFZUserErrorFailedSetHeightParamInvalid,
+    /* Failed to set dob due to invalid param. */
+    RNMFZUserErrorFailedSetDOBParamInvalid
 };
 #define RNMFZUSER_ERR_DOMAIN            @"com.myfiziq.rnsdk.user"
 
@@ -43,5 +45,7 @@ typedef NS_ENUM(NSInteger, RNMFZUserError) {
 + (void)mfzUserSetWeightKg:(float)weightKg resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 + (void)mfzUserHeightCmResolver:(RCTPromiseResolveBlock)resolve;
 + (void)mfzUserSetHeightCm:(float)heightCm resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
++ (void)mfzUserDOBResolver:(RCTPromiseResolveBlock)resolve;
++ (void)mfzUserSetDOB:(NSString *)dob resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
 @end
 

@@ -14,18 +14,9 @@ Pod::Spec.new do |s|
   s.license               = { :type => 'Commercial', :file => 'LICENSE.md' }
   s.author                = { 'MyFiziq' => 'dev@myfiziq.com' }
   s.ios.deployment_target = '12.1'
-  s.source                = { :git => "https://github.com/MyFiziqApp/reactnative-plugin-myfiziq", :branch => "19.1.9_trunk" }
+  s.source                = { :git => "https://github.com/MyFiziqApp/reactnative-plugin-myfiziq.git", :branch => "19.1.9_trunk" }
   # s.source_files          = "*.{h,m}"
   s.requires_arc          = true
-
-
-  s.dependency "React"
-  s.dependency 'MyFiziqSDKCommon'
-  s.dependency 'MyFiziqSDKBilling'
-  s.dependency 'MyFiziqSDK'
-  s.dependency 'SHEmailValidator'
-  
-
 end
 
   

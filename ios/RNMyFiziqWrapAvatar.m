@@ -257,6 +257,24 @@
     }
 }
 
++ (void)mfzAvatarMiscDataId:(NSString *)attemptId Resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject {
+    // Check param
+    if (!attemptId) {
+        if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
+                           RNMFZAVATAR_ERR_DOMAIN,
+                           [NSError errorWithDomain:RNMFZAVATAR_ERR_DOMAIN code:RNMFZAvatarErrorNoAttemptIdParam userInfo:nil]);
+    } else {
+        MyFiziqAvatar *avatar = [RNMyFiziqWrapAvatar getAvatarForAttemptId:attemptId];
+        if (!avatar) {
+            if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoResult],
+                               RNMFZAVATAR_ERR_DOMAIN,
+                               [NSError errorWithDomain:RNMFZAVATAR_ERR_DOMAIN code:RNMFZAvatarErrorNoResult userInfo:nil]);
+        } else {
+            if (resolve) resolve(avatar.misc);
+        }
+    }
+}
+
 // Avatar Manager
 
 + (void)mfzAvatarMgrRequestWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject {

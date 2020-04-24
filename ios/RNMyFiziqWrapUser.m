@@ -139,4 +139,27 @@
     }
 }
 
++ (void)mfzUserDOBResolver:(RCTPromiseResolveBlock)resolve {
+    NSDate * dob = [MyFiziqSDK shared].user.birthdate;
+    NSDateFormatter* dobFormatter = [[NSDateFormatter alloc]init];
+    [dobFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dobStr = [dobFormatter stringFromDate:dob];
+    if (resolve) resolve(dobStr);
+}
+
++ (void)mfzUserSetDOB:(NSString *)dob resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject {
+    // Check params
+    if (dob) {
+      NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+      [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+      [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+      NSDate *dobDate = [dateFormatter dateFromString:dob];
+      [MyFiziqSDK shared].user.birthdate = dobDate;
+    } else {
+      if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZUserErrorFailedSetHeightParamInvalid],
+                       RNMFZUSER_ERR_DOMAIN,
+                       [NSError errorWithDomain:RNMFZUSER_ERR_DOMAIN code:RNMFZUserErrorFailedSetDOBParamInvalid userInfo:@{NSLocalizedDescriptionKey:@"Param value must be valid birthdate."}]);
+    }
+}
+
 @end
