@@ -34,6 +34,11 @@
     "react-native-windows": "0.41.0-rc.1"
   },
   "pods": {
+    "MyFaCSS": {
+      "pod": "MyFaCSS",
+      "git": "https://github.com/MyFiziqApp/InterfaCSS.git",
+      "branch": "19.1.6_trunk"
+    },
     "MyFiziqSdkCommon": {
       "pod": "MyFiziqSDKCommon",
       "git": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-common",
@@ -48,10 +53,6 @@
       "pod": "MyFiziqSDK",
       "git": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios",
       "branch": "19.1.9_trunk"
-    },
-    "RNMyFiziqSdk": {
-      "pod": "RNMyFiziqSdk",
-      "path": "../node_modules/react-native-my-fiziq-sdk/ios"
     }
   }
 }
