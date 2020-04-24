@@ -13,7 +13,9 @@ typedef NS_ENUM(NSInteger, RNMFZCoreError) {
     /* Answer logins param(s) nil. */
     RNMFZCoreErrorAnswerLoginsParamNil,
     /* Capture process failed. */
-    RNMFZCoreErrorCaptureProcessFailed
+    RNMFZCoreErrorCaptureProcessFailed,
+    /* Invalid param to custom billing event call. */
+    RNMFZCoreErrorBillingIDParamInvalid
 };
 #define RNMFZCORE_ERR_DOMAIN            @"com.myfiziq.rnsdk.core"
 #define RNMFZCORE_EVENT_AUTH            @"myfiziqGetAuthToken"
