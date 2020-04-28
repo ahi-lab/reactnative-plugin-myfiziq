@@ -116,17 +116,19 @@ RCT_REMAP_METHOD(mfzSdkInitiateAvatarCreation,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation called");
-    UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [[MyFiziqSDK shared] initiateAvatarCreationWithOptions:nil withMiscellaneousData:[RNMyFiziqWrapCommon shared].miscData fromViewController:vc completion:^(NSError * _Nullable err) {
-        RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation completed");
-        if (err && err.code != MFZSdkErrorCodeCancelCreation && err.code != MFZSdkErrorCodeOKCaptureCancel) {
-            if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
-                               RNMFZAVATAR_ERR_DOMAIN,
-                               [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorCaptureProcessFailed userInfo:@{NSLocalizedDescriptionKey:@(err.code)}]);
-        } else {
-            // Resolve with potential user cancel
-            if (resolve) resolve(err.code == MFZSdkErrorCodeCancelCreation || err.code == MFZSdkErrorCodeOKCaptureCancel ? @"cancel" : nil);
-        }
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
+        [[MyFiziqSDK shared] initiateAvatarCreationWithOptions:nil withMiscellaneousData:[RNMyFiziqWrapCommon shared].miscData fromViewController:vc completion:^(NSError * _Nullable err) {
+            RCTLogInfo(@"MFZ: mfzSdkInitiateAvatarCreation completed");
+            if (err && err.code != MFZSdkErrorCodeCancelCreation && err.code != MFZSdkErrorCodeOKCaptureCancel) {
+                if (reject) reject([NSString stringWithFormat:@"%ld", RNMFZAvatarErrorNoAttemptIdParam],
+                                RNMFZAVATAR_ERR_DOMAIN,
+                                [NSError errorWithDomain:RNMFZCORE_ERR_DOMAIN code:RNMFZCoreErrorCaptureProcessFailed userInfo:@{NSLocalizedDescriptionKey:@(err.code)}]);
+            } else {
+                // Resolve with potential user cancel
+                if (resolve) resolve(err.code == MFZSdkErrorCodeCancelCreation || err.code == MFZSdkErrorCodeOKCaptureCancel ? @"cancel" : nil);
+            }
+        }];
     }];
 }
 
