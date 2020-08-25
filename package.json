@@ -47,12 +47,12 @@
     "MyFiziqSdkBilling": {
       "pod": "MyFiziqSDKBilling",
       "git": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios-billing",
-      "branch": "19.1.9_trunk"
+      "branch": "19.1.10_trunk"
     },
     "MyFiziqSdk": {
       "pod": "MyFiziqSDK",
       "git": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios",
-      "branch": "19.1.9_trunk"
+      "branch": "19.1.13_trunk"
     },
     "SpotHeroEmailValidator": {
       "pod": "SpotHeroEmailValidator"
